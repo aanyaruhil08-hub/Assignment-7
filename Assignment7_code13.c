@@ -1,55 +1,80 @@
-/* Row-wise and Column-wise Sums
-Write a C program to input an m by n matrix. Calculate and display the sum of the elements in each row and each column. */
+/* Transpose and Symmetry of a Matrix
+Write a C program to input a square matrix and find its transpose. Compare the original matrix with its transpose and determine whether the matrix is symmetric, skew-symmetric, or neither. Display the transpose and the result. */
 
 #include <stdio.h>
 
 int main()
 {
-    int arr[10][10];
-    int rows, cols;
-    int i, j, sum;
+    int A[10][10], T[10][10];
+    int n;
+    int i, j;
+    int symmetric = 1;
+    int skew = 1;
 
-    printf("Enter the number of rows and columns: ");
-    scanf("%d %d", &rows, &cols);
+    printf("Enter the order of the square matrix: ");
+    scanf("%d", &n);
 
     printf("Enter the elements of the matrix:\n");
 
-    for (i = 0; i < rows; i++)
+    for (i = 0; i < n; i++)
     {
-        for (j = 0; j < cols; j++)
+        for (j = 0; j < n; j++)
         {
-            scanf("%d", &arr[i][j]);
+            scanf("%d", &A[i][j]);
         }
     }
 
-    printf("\nRow-wise Sum:\n");
+    /* Find transpose */
 
-    for (i = 0; i < rows; i++)
+    for (i = 0; i < n; i++)
     {
-        sum = 0;
-
-        for (j = 0; j < cols; j++)
+        for (j = 0; j < n; j++)
         {
-            sum = sum + arr[i][j];
+            T[i][j] = A[j][i];
         }
-
-        printf("Sum of Row %d = %d\n", i + 1, sum);
     }
 
-    printf("\nColumn-wise Sum:\n");
+    printf("\nTranspose Matrix:\n");
 
-    for (j = 0; j < cols; j++)
+    for (i = 0; i < n; i++)
     {
-        sum = 0;
-
-        for (i = 0; i < rows; i++)
+        for (j = 0; j < n; j++)
         {
-            sum = sum + arr[i][j];
+            printf("%d ", T[i][j]);
         }
+        printf("\n");
+    }
 
-        printf("Sum of Column %d = %d\n", j + 1, sum);
+    /* Check symmetry */
+
+    for (i = 0; i < n; i++)
+    {
+        for (j = 0; j < n; j++)
+        {
+            if (A[i][j] != T[i][j])
+            {
+                symmetric = 0;
+            }
+
+            if (A[i][j] != -T[i][j])
+            {
+                skew = 0;
+            }
+        }
+    }
+
+    if (symmetric)
+    {
+        printf("\nThe matrix is Symmetric.\n");
+    }
+    else if (skew)
+    {
+        printf("\nThe matrix is Skew-Symmetric.\n");
+    }
+    else
+    {
+        printf("\nThe matrix is Neither Symmetric nor Skew-Symmetric.\n");
     }
 
     return 0;
 }
-
